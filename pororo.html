@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>BlaBlaBla Chat</h1>
+    <div class="status" id="status">Status podckl...</div>
+    <div id="chat"></div>
+    <input type="text" id="message" placeholder="Pisat blablabla">
+    <button onclick="sendMessage()">Send</button>
+    <script>
+        const chat = document.getElementById('chat');
+        const input = document.getElementById('message');
+        const status = document.getElementById('status');
+
+        const socket = new WebSocket('wss://ws.postman-echo.com/raw');
+
+        socket.onopen = () => {
+            status.textContent = 'Status: podckl';
+            status.style.color = 'green';
+        };
+
+        socket.onmessage = (event) => {
+            addMessage("Server: " + even.data);
+        };
+
+        socket.onerror = () => {
+            status.textContent = "Status: error";
+            status.style.color = "red";
+        };
+
+        socket.onclose = () => {
+            status.textContent = "Status: soedinenie zakrito";
+            status.style.color = "gray";
+        };
+
+        function sendMessage() {
+            const text = input.value.trim();
+
+            if (text === "") return;
+
+            addMessage("U: " + text);
+            socket.send(text);
+            input.value = "";
+        };
+
+        function addMessage(text) {
+            const div = docment.creatElement("div");
+            div.textContent = text;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        };
+
+        input.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                sendMessage();
+            };
+        });
+    </script>
+</body>
+</html>
