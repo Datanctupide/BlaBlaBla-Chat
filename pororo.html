@@ -10,7 +10,27 @@
             background: #f2f2f2;
             padding: 20px;
         }
-
+        #chat {
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+        #message {
+            width: 380px;
+            padding: 8px;
+        }
+        button {
+            padding: 8px 12px;
+        }
+        .status {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -24,7 +44,7 @@
         const input = document.getElementById('message');
         const status = document.getElementById('status');
 
-        const socket = new WebSocket('wss://ws.postman-echo.com/raw');
+        const socket = new WebSocket('https://ws.postman-echo.com/raw');
 
         socket.onopen = () => {
             status.textContent = 'Status: podckl';
@@ -59,7 +79,7 @@
             const div = docment.creatElement("div");
             div.textContent = text;
             chat.appendChild(div);
-            chat.scrollTop = chat.scrollHeight;
+            chat.scrolltop = chat.scrollHeight;
         };
 
         input.addEventListener("keydown", (event) => {
